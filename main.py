@@ -14,10 +14,10 @@ import json
 import urllib.request
 
 from telegram import (
-        InlineQueryResultArticle,
-        InputTextMessageContent,
-        ParseMode
-    )
+    InlineQueryResultArticle,
+    InputTextMessageContent,
+    ParseMode
+)
 from telegram.ext import Updater, InlineQueryHandler
 
 
@@ -35,7 +35,7 @@ class Page:
     @name: Page
     @description: Class representing a wiki page
     """
-    
+
     opensearch = "action=opensearch&"\
                  "format=json&"\
                  "search={0}&"\
@@ -43,7 +43,7 @@ class Page:
                  "limit=10&"\
                  "redirects=resolve&"\
                  "utf8=1&formatversion=2"
-    
+
     extract_query = "action=query&"\
                     "format=json&"\
                     "prop=extracts&"\
@@ -53,7 +53,7 @@ class Page:
                     "formatversion=2&"\
                     "exchars=71&"\
                     "exsectionformat=raw"
-    
+
     def __init__(self, title: str, url: str):
         self.title = title
         self.url = url
@@ -67,7 +67,7 @@ class Page:
         self.url = self.url.replace("(", "%28")
         self.url = self.url.replace(")", "%29")
         self.extract = extract
-    
+
     def __str__(self):
         to_return = "*{0}*\n" + self.extract + " [(Continua a leggere)]({1})"
         return to_return.format(self.title, self.url)
@@ -98,20 +98,20 @@ def inline_pages(bot, update):
             for page in pages:
                 content = str(page)
                 new_result = InlineQueryResultArticle(
-                        id=page.title,
-                        title=page.title,
-                        input_message_content=InputTextMessageContent(
-                                content,
-                                parse_mode=ParseMode.MARKDOWN
-                            )
+                    id=page.title,
+                    title=page.title,
+                    input_message_content=InputTextMessageContent(
+                        content,
+                        parse_mode=ParseMode.MARKDOWN
                     )
+                )
                 results.append(new_result)
         except PageNotFoundError:
             new_result = InlineQueryResultArticle(
-                    id="Pagina non trovata",
-                    title="Pagina non trovata",
-                    input_message_content=InputTextMessageContent(query)
-                )
+                id="Pagina non trovata",
+                title="Pagina non trovata",
+                input_message_content=InputTextMessageContent(query)
+            )
             results = [new_result]
         bot.answer_inline_query(update.inline_query.id, results)
 
