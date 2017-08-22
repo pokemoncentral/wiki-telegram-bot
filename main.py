@@ -9,6 +9,7 @@ Created on Sat Jul 22 02:28:47 2017
 
 
 import re
+import sys
 import json
 import urllib.request
 
@@ -21,7 +22,7 @@ from telegram.ext import Updater, InlineQueryHandler
 
 
 PCW = "https://wiki.pokemoncentral.it/api.php?"
-TOKEN = "440875780:AAEmIjqrAbJRV_FgaXpAXXSaTQ0ZOcYEM6g"
+TOKEN = sys.argv[-1]
 HTML_REGEX = re.compile(r"<[\w/ =\"]+>", re.IGNORECASE)
 
 
