@@ -117,11 +117,13 @@ def inline_pages(bot, update):
 
 
 def main():
+    print("Starting bot...")
     updater = Updater(token=TOKEN)
     dispatcher = updater.dispatcher
     inline_page_finder = InlineQueryHandler(inline_pages)
     dispatcher.add_handler(inline_page_finder)
     updater.start_polling()
+    print("Bot running.")
     updater.idle()
 
 
