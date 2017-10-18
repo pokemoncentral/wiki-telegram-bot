@@ -7,7 +7,7 @@ Created on Sat Jul 22 02:28:47 2017
 @author: SimplyAero
 """
 
-
+import os
 import re
 import sys
 import json
@@ -22,7 +22,7 @@ from telegram.ext import Updater, InlineQueryHandler
 
 
 PCW = "https://wiki.pokemoncentral.it/api.php?"
-TOKEN = sys.argv[-1]
+TOKEN = os.getenv('TOKEN', sys.argv[-1])  # Retrieve the token either from env or cmd arg
 HTML_REGEX = re.compile(r"<[\w/ =\"]+>", re.IGNORECASE)
 
 
